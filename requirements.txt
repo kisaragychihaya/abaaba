@@ -1,0 +1,3 @@
+alibabacloud-alimt20181012==1.1.0
+pypandoc_binary
+requests
