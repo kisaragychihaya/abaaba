@@ -1,6 +1,17 @@
 import argparse
 from abaaba import Translate
 import os
+import shutil
+from pathlib import Path
+from multiprocessing import Pool
+
+def t_process(p:tuple):
+    o,d,t=p
+    if Path(o).suffix == ".md":
+        t.translate(o)
+        t.save(d)
+    else:
+        shutil.copyfile(o, d)
 def main(src,dst,t:Translate=None):
     if not (os.path.exists(dst) and os.path.isdir(dst)):
         os.makedirs(dst,exist_ok=True)
@@ -13,9 +24,14 @@ def main(src,dst,t:Translate=None):
         else:
             o = os.path.join(src, obj)
             d = os.path.join(dst, obj)
-            print(f"translate {o} to {d}")
-            t.translate(o)
-            t.save(d)
+            pth.append((o, d,t))
+            # print(f"translate {o} to {d}")
+            # if Path(o).suffix==".md":
+            #     t.translate(o)
+            #     t.save(d)
+            # else:
+            #     shutil.copyfile(o,d)
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--ak",required=(not "AK_ABA" in os.environ.keys()),help="API KEY")
@@ -28,6 +44,10 @@ if __name__ == '__main__':
     args=parser.parse_args()
     os.environ['AK_ABA']=args.ak
     os.environ['SK_ABA']=args.sk
+    pth=[]
     t=Translate(fl=args.from_lang,tl=args.to_lang)
     main(args.source, args.dest,t)
+    with Pool(4) as p:
+        p.map(t_process, pth)
+
 
