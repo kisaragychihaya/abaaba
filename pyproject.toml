@@ -37,8 +37,8 @@ openai = [
 dependencies = { file = ["./requirements.txt"] }
 version = { attr = "abaaba.__version__" }
 
-[project.scripts]
-"abaaba" = "abaaba.cli"
+# [project.scripts]
+# "abaaba" = "abaaba.cli"
 
 [tool.setuptools]  # configuration specific to the `setuptools` build backend.
 packages ={ find = { where = ["."], include = ["abaaba", "abaaba.*"] } }# ["yiku", "yiku.*"]
