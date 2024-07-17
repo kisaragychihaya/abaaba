@@ -1,0 +1,31 @@
+name: 'abaaba_trans'
+description: 'translate'
+inputs:
+  sk:  # id of input
+    description: 'secret for api'
+    required: true
+  ak:
+    description: 'api key for api'
+    required: true
+  src:
+    description: 'source dir'
+    required: true
+  dest:
+    description: 'dest dir'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Set Greeting
+      run: pip install .
+      shell: bash
+
+    - name: Random Number Generator
+      id: random-number-generator
+      run: python -m abaaba.cli --ak $AK --sk $SK -s $SRC -d $DEST
+      shell: bash
+      env:
+        SRC: ${{ inputs.src }}
+        DEST: ${{ input.dest }}
+        AK: ${{ inputs.ak }}
+        SK: ${{ inputs.sk }}
