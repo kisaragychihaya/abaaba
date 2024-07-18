@@ -8,7 +8,7 @@
 1. 先去阿里云申请机器翻译AK和SK，这部分请找阿里的麻烦
 2. 设置环境变量 `AK_ABA` 和`SK_ABA`
 3. 在命令行里面运行`pip install git+https://github.com/kisaragychihaya/abaaba`
-4. `abaaba --help`查看帮助
+4. `python -m abaaba.cli --help`查看帮助
 
 ---------------------
 
