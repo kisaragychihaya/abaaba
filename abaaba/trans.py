@@ -2,16 +2,18 @@ import json,pypandoc
 from pathlib import Path
 class Translate:
     def __init__(self,translate=None,fl="zh",tl="en"):
-        self.bot=Translate
+        self.bot=None
         self._sl=fl
         self._tl=tl
         self.doc=None
         if not translate:
             try:
                 from abaaba.AlibabaTrans import AliTrans
-                self.bot=AliTrans
+                self.bot=AliTrans()
             except ImportError:
                 raise NotImplementedError("找不到翻译器！！")
+        else:
+            self.bot=translate()
 
     def translate(self,src):
         self.suffix=Path(src).suffix

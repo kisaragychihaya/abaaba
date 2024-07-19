@@ -74,7 +74,16 @@ if __name__ == '__main__':
     dest=args.dest
     if dest is None:
         dest=args.source+"_"+args.to_lang
-    t=Translate(fl=args.from_lang,tl=args.to_lang)
+    if args.translator=="ali":
+        t=Translate(fl=args.from_lang,tl=args.to_lang)
+    elif args.translator=="baidu":
+        from abaaba.BaiduTrans import BaiduTrans
+        t=Translate(translate=BaiduTrans,fl=args.from_lang,tl=args.to_lang)
+    elif args.translator=="baidu-free":
+        from abaaba.BaiduTrans import BaiduFreeTrans
+        t = Translate(translate=BaiduFreeTrans, fl=args.from_lang, tl=args.to_lang)
+    else:
+        raise argparse.ArgumentError("Invalid translator")
     if (Path(src)/".statue.json").is_file():
         with open(Path(src)/".statue.json",mode="r",encoding="utf-8")as f:
             d_statue=json.load(f)
