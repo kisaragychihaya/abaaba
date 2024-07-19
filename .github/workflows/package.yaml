@@ -39,13 +39,8 @@ jobs:
           mkdir -p ./wheelhouse
           cp dist/*  ./wheelhouse/
 
-      # - uses: actions/upload-artifact@v3
-      #   with:
-      #     path: ./wheelhouse/*.whl
-
-      - name: Upload wheels to release
-        # upload the generated wheels to the github release
-        uses: AButler/upload-release-assets@v3.0
+      - uses: actions/upload-artifact@v3
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          files: './wheelhouse/*'
+          path: ./wheelhouse/*.whl
+
+
