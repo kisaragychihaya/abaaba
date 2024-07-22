@@ -82,6 +82,9 @@ if __name__ == '__main__':
     elif args.translator=="baidu-free":
         from abaaba.BaiduTrans import BaiduFreeTrans
         t = Translate(translate=BaiduFreeTrans, fl=args.from_lang, tl=args.to_lang)
+    elif args.translator=="baidu-35":
+        from abaaba.BaiduTrans import Baidu35Trans
+        t = Translate(translate=Baidu35Trans, fl=args.from_lang, tl=args.to_lang)
     else:
         raise argparse.ArgumentError("Invalid translator")
     if (Path(src)/".statue.json").is_file():
